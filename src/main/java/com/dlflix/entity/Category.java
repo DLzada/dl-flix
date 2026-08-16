@@ -1,7 +1,6 @@
 package com.dlflix.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,5 +15,5 @@ public class Category {
     private Long id;
 
     @Column(length = 100, nullable = false)
-    private String nome;
+    private String name;
 }
