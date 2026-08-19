@@ -1,11 +1,23 @@
 package com.dlflix.service;
 
+import com.dlflix.controller.response.MovieResponse;
+import com.dlflix.entity.Movie;
 import com.dlflix.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MovieService {
-    private final MovieRepository repository;
+    private final MovieRepository movieRepository;
+
+    public Movie save(Movie movie){
+        return movieRepository.save(movie);
+    }
+
+    public List<Movie> findAll(){
+        return movieRepository.findAll();
+    }
 }
