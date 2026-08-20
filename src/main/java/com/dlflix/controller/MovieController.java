@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("dlflix/movie")
+@RequestMapping("/dlflix/movie")
 @RequiredArgsConstructor
 public class MovieController {
 
@@ -36,6 +36,13 @@ public class MovieController {
     @GetMapping("/{id}")
     public ResponseEntity<MovieResponse> findById(@PathVariable Long id){
         return movieService.findById(id)
+                .map(movie -> ResponseEntity.ok(MovieMapper.toMovieResponse(movie)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MovieResponse> update(@PathVariable Long id, @RequestBody MovieRequest request) {
+        return movieService.update(id, MovieMapper.toMovie(request))
                 .map(movie -> ResponseEntity.ok(MovieMapper.toMovieResponse(movie)))
                 .orElse(ResponseEntity.notFound().build());
     }
