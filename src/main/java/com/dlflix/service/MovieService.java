@@ -63,6 +63,10 @@ public class MovieService {
         return Optional.empty();
     }
 
+    public void delete(Long id){
+        movieRepository.deleteById(id);
+    }
+
     private List<Category> findCategories(List<Category> categories){
         List<Category> categoriesFound = new ArrayList<>();
         categories.forEach(category -> categoryService.findById(category.getId()).ifPresent(categoriesFound::add));
