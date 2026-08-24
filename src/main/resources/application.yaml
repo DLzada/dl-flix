@@ -8,10 +8,14 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
-    database-plataform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: update
 
+  jwt:
+    secret: ${JWT_KEY}
+
   flyway:
     enabled: true
+

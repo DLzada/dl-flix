@@ -19,13 +19,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/dlfix/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "dlflix/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/dlflix/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/dlflix/auth/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 //.addFilter()
@@ -33,12 +33,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    private PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
         return authenticationConfiguration.getAuthenticationManager();
     }
 }

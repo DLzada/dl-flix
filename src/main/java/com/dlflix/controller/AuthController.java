@@ -1,7 +1,9 @@
 package com.dlflix.controller;
 
+import com.dlflix.config.TokenService;
 import com.dlflix.controller.request.LoginRequest;
 import com.dlflix.controller.request.UserRequest;
+import com.dlflix.controller.response.LoginResponse;
 import com.dlflix.controller.response.UserResponse;
 import com.dlflix.entity.User;
 import com.dlflix.mapper.UserMapper;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody UserRequest userRequest){
@@ -31,10 +34,14 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
         UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password());
         Authentication authenticate = authenticationManager.authenticate(userAndPass);
 
         User user = (User) authenticate.getPrincipal();
+
+        String token = tokenService.generateToken(user);
+
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 }
