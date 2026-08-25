@@ -6,16 +6,13 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
-
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: update
-
-  jwt:
-    secret: ${JWT_KEY}
-
   flyway:
     enabled: true
 
+jwt:
+  secret: ${JWT_KEY}
