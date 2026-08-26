@@ -30,7 +30,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/dlflix/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/dlflix/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
